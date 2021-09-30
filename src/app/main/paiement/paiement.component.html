@@ -1,0 +1,179 @@
+<div>
+    <h3 class="subtitle1">Enregistrer un paiement</h3>
+
+    <form #myform="ngForm" class="form_content">
+        <div class="form_content_1">
+
+            <div class="login__box">
+                <i class="bx bx-user login__icon"></i>
+                <select class="login__input1" name="locataire" (change)="changeLocataire($event)" ngModel>
+                    <option selected>Choisir Locataire</option>
+                    <option *ngFor="let location of locations">{{location.locataireName}}</option>
+
+                </select>
+
+            </div>
+
+            <div class="login__box">
+                <i class="bx bx-clinic login__icon"></i>
+                <select class="login__input1" name="local" (change)="changeLocal($event)" ngModel>
+                    <option selected>Choisir Local</option>
+                    <option *ngFor="let location of customLocations">{{location.localName}}</option>
+
+                </select>
+
+            </div>
+
+            <div class="login__box">
+                <i class='bx bxs-calendar login__icon'></i>
+                <input type="date" name="periode" class="login__input" ngModel (change)="changePeriode($event)">
+            </div>
+
+            <!-- 2ème -->
+            <div class="login__box">
+                <i class='bx bx-dollar-circle login__icon'></i>
+                <input type="number" min="1" name="montant" placeholder="Montant (US)" class="login__input" ngModel>
+
+            </div>
+
+            <div class="login__box">
+                <i class="fa fa-check login__icon"></i>
+                <select class="login__input1" name="type" ngModel (change)="changeType($event)">
+                    <option selected>Choisir Type Paiement</option>
+                    <option value="2">Charges</option>
+                    <option value="1">Loyer</option>
+                </select>
+
+            </div>
+
+            <div class="login__box">
+                <i class='bx bx-text login__icon'></i>
+                <input type="text" name="description" placeholder="Entrer une description" class="login__input" ngModel>
+
+            </div>
+
+
+        </div>
+
+        <!-- penser à mettre l'image -->
+        <br>
+        <div>
+            <label for="monFile">Photo du bordereau ici</label> &nbsp; &nbsp;
+            <input type="file" name="monFile" id="monFile" (change)="onSelectedFile($event)" ngModel />
+
+
+            <!-- <label for="monFile">Charger fichier ici</label>
+            <input type="file" name="monFile" id="monFile" (change)="onSelectedFile($event)"> -->
+        </div>
+
+        <!--  -->
+        <div class="form_content_btn">
+            <a class="login__button" (click)="onSavePaiement(myform)">{{textBtn}}</a>
+        </div>
+
+    </form>
+
+    <h3 class="subtitle1">Liste des paiements</h3> <br>
+    <!-- ici il faut mettre des input de recherche -->
+    <div class="search_content">
+
+        <div class="login__input_search">
+            <i class='bx bx-search login__icon'></i>
+            <input type="text" name="nomLocataire" placeholder="Recherche par locataire" class="login__input"
+                [(ngModel)]="textSearchLocataire" (ngModelChange)="onSearchByLocataire($event)">
+        </div>
+
+        <div class="login__input_search1">
+            <i class='bx bx-search login__icon'></i>
+            <input type="text" name="nomLocal" placeholder="Recherche par local" class="login__input"
+                [(ngModel)]="textSearchLocal" (ngModelChange)="onSearchByLocal($event)">
+        </div>
+
+        <div class="login__input_search1">
+            <i class='bx bx-search login__icon'></i>
+            <input type="text" name="nomType" placeholder="Recherche par type" class="login__input"
+                [(ngModel)]="textSearchType" (ngModelChange)="onSearchByType($event)">
+        </div>
+
+        <div class="login__input_search1">
+            <i class='bx bx-search login__icon'></i>
+            <input type="text" name="nomState" placeholder="Recherche par etat" class="login__input"
+                [(ngModel)]="textSearchState" (ngModelChange)="onSearchByState($event)">
+        </div>
+
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>
+                    Locataire
+                </th>
+                <th>Local</th>
+                <th>Montant (US)</th>
+                <th (click)="onSort('paiment.type')">
+                    Type
+                    &nbsp; <i class='bx bx-sort tri__icon' title="Cliquez pour trier"></i>
+                </th>
+                <th (click)="onSort('paiment.state')">
+                    Etat
+                    &nbsp; <i class='bx bx-sort tri__icon' title="Cliquez pour trier"></i>
+                </th>
+                <th>Reste (US)</th>
+                <th>Date</th>
+                <th>Description</th>
+                <th>Image &nbsp; <i class='bx bxs-show tri__icon'></i></th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr *ngFor="let paiment of paiements | orderBy: key : reverse| paginate:{
+        itemsPerPage:itemPage, 
+        currentPage: page,
+        totalItems: totalLength }; index as i">
+
+                <td>{{ itemPage * (page - 1) + (i+1)}}</td>
+                <td>{{ paiment.locataire }}</td>
+                <td>{{ paiment.local }}</td>
+                <td>{{ paiment.montant }}</td>
+                <td *ngIf="paiment.type == 1">Loyer</td>
+                <td *ngIf="paiment.type == 2">Charges</td>
+                <td>{{ paiment.state }}</td>
+                <td>{{ paiment.reste }}</td>
+                <td>{{ paiment.datePaiement | date:'dd/MM/yyyy'}}</td>
+                <td>{{ paiment.description }}</td>
+                <!-- <td> {{ paiment.imageBordereau }}</td> -->
+                <td *ngIf="paiment.imageBordereau == '' ">indisponible.</td>
+                <td *ngIf="paiment.imageBordereau != '' "><a href="{{paiment.imageBordereau}}" target="blank">Voir en un
+                        clic.</a></td>
+                <td *ngIf="paiment.state == 'partiel' " (click)="onCheckPaiement(paiment)">
+                    &nbsp;
+                    <span class="bx bx-refresh action_edit big_icon" title="Cliquez pour regler"></span>
+                    <!--  &nbsp;|&nbsp;
+                    <span class="bx bxs-x-square action_delete" title="Cliquez pour supprimer"></span> -->
+
+                </td>
+                <td *ngIf="paiment.state == 'complet' ">&nbsp; --- </td>
+
+
+
+            </tr>
+        </tbody>
+
+    </table>
+
+    <div class="end_box_section">
+        <pagination-controls (pageChange)="page = $event" previousLabel="Précedent" nextLabel="Suivant"
+            class="page_center my-pagination">
+        </pagination-controls>
+    </div>
+
+</div>
+
+
+<!-- spinner de progression -->
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-spin-fade">
+    <p style="font-size: 20px; color: white">{{textSpinner}}</p>
+</ngx-spinner>

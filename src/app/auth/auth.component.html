@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="forms-container">
+    <div class="signin-signup">
+
+      <form #loginForm="ngForm" class="sign-in-form">
+        <h2 class="title">Connexion</h2>
+        <div class="input-field">
+          <i class="fas fa-user"></i>
+          <input type="text" name="userlogin" placeholder="Pseudo" ngModel />
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="passwordlogin" placeholder="Mot de passe" ngModel />
+        </div>
+
+        <a href="#" class="login__forgot">Mot de passe oublié?</a>
+
+
+        <div class="input-field">
+          <i class="fa fa-check"></i>
+          <select (change)="changeProfil($event)">
+            <option disabled>Choisir Profil</option>
+            <option value="manager">Gérant</option>
+            <option value="user">Utilisateur</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+
+
+        <input type="submit" value="Se connecter" class="btn solid" (click)="onLogin(loginForm)" />
+
+
+
+      </form>
+    </div>
+  </div>
+
+  <div class="panels-container">
+    <div class="panel left-panel">
+      <div class="content">
+        <h2>Bienvenu.e sur G-Loyer</h2>
+        <h4>Votre Logiciel de gestion loyer</h4>
+        <p>
+          Une fois que votre compte a été créé avec succès, <br>
+          veuillez vous connecter avec vos identifiants.
+        </p>
+
+      </div>
+      <img src="../../assets/img/man.png" class="image" alt="login_image" />
+    </div>
+
+  </div>
+
+  <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="line-spin-clockwise-fade">
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
+
+</div>
+<!-- <ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="ball-spin-clockwise" [fullScreen]="true">
+  <p style="color: white"> Loading... </p>
+</ngx-spinner> -->

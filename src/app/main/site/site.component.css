@@ -1,0 +1,129 @@
+/* Style de site */
+.container{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap:50px
+}
+.title{
+    margin-left: 45%;
+    margin-right: 30%;
+    margin-bottom: 25px;
+}
+.subtitle1{
+    margin-left: 12%;
+    margin-bottom: 20px;
+}
+.subtitle2{
+    margin-left: 35%;
+    margin-bottom: 20px;
+}
+
+
+/* form */
+.login__box{
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    column-gap: .5rem;
+    padding: 1.125rem 1rem;
+    background-color: #FFF;
+    margin-top: 1rem;
+    border-radius: .5rem;
+  }
+
+  .login__icon{
+    font-size: 1.5rem;
+    color: #5995fd;
+  }
+  
+  .login__input{
+    border: none;
+    outline: none;
+    font-size: .938rem;
+    font-weight: 700;
+    color: #23004D;
+  }
+  
+  .login__input::placeholder{
+    font-size: .938rem;
+    font-family:'Open Sans', sans-serif;
+    color: #A49EAC;
+  }
+
+  .login__button{
+    display: block;
+    padding: 1rem;
+    margin: 2rem 0;
+    background-color: #5995fd;
+    color: #FFF;
+    font-weight: 600;
+    text-align: center;
+    border-radius: .5rem;
+    transition: .3s;
+  }
+  
+  .login__button:hover{
+    background-color: #4c86e9;
+    cursor: pointer;
+  }
+
+  /* tableau */
+
+  
+  table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th {
+    background-color: #5995fd;
+    border: 1px solid #5995fd;
+    color: #FFF;
+  }
+  td {
+    border: 1px solid #dddddd;
+  }
+  td, th {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  .end_box_section{
+    margin: 25px auto 5px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+/* action button */
+.action_edit:hover, .action_delete:hover{
+  cursor: pointer;
+}
+.action_edit{
+  color: #5995fd;
+}
+.action_delete{
+  color: red;
+}
+
+@media screen and (max-width: 650px) {
+  .container{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap:50px;
+    justify-content: center;
+    
+}
+ .content_left{
+    padding: 0 75px;
+}
+.subtitle1{
+  margin-left: 22%;
+  
+}
+
+}

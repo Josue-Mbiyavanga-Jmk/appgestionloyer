@@ -1,0 +1,306 @@
+/* Sidebar  */
+.sidebar{
+    /* width: 345px; */
+    width: 270px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    /*background: #DD2F6E; */
+    background: #5995fd;
+    z-index: 100;
+    transition: width 300ms;
+  }
+  /* le text et logo du sibebar */
+  .sidebar_brand{
+    height: 70px;
+    padding: 1rem 0rem 1rem 2rem;
+    color: #fff;
+  }
+  /* logo du sibebar */
+  .sidebar_brand span{
+    display: inline-block;
+    padding-right: 1rem;
+  }
+  /*nav separateur */
+  .bottom_link{
+    margin-top: 30%;
+  }
+  /* link profil */
+  .profil__link:hover{
+    color: #8390A2;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  /* menu du sibebar */
+  .sidebar_menu {
+    margin-top: 1rem;
+  }
+  .sidebar_menu li{
+    width: 100%;
+    margin-bottom: 1.7rem;
+    padding-left: 1rem;
+  }
+  
+  .sidebar_menu a{
+    display: block;
+    color: #fff;
+    font-size: 1.2rem;
+    padding-left: 1rem;
+  }
+  .sidebar_menu a.active{
+    background: #fff;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    /*color: #DD2F6E; */
+    color: #5995fd;
+    border-radius: 30px 0 0 30px;
+  }
+  
+  .sidebar_menu a span:first-child{
+    padding-right: 1rem;
+    font-size: 1.5rem;
+  }
+  .sidebar_menu ul li a span:last-child{
+    padding-bottom: 3px;
+  }
+  .sidebar_menu ul li a:hover span:last-child{
+    /*color: #dee0e4; */
+    color: #aeb9cc;
+    cursor: pointer;
+  }
+  .sidebar_menu ul li a.active:hover span:last-child{
+    /*color: #dee0e4; */
+    color: #311ed6;
+    cursor: pointer;
+  }
+  /* le toggle du nav et le menu */
+  #nav-toggle:checked + .sidebar{
+    width: 70px;
+  }
+  
+  #nav-toggle:checked + .sidebar .sidebar_brand,
+  #nav-toggle:checked + .sidebar li{
+    padding-left: 1rem;
+    text-align: center;
+  }
+  
+  #nav-toggle:checked + .sidebar li a{
+    padding-left: 0;
+  }
+  
+  #nav-toggle:checked + .sidebar .sidebar_brand h2 span:last-child,
+  #nav-toggle:checked + .sidebar li a span:last-child{
+    display: none;
+  }
+  
+  #nav-toggle:checked ~ .main_content{
+    margin-left: 70px;
+  }
+  
+  #nav-toggle:checked ~ .main_content header{
+  /* rien à mettre ça marche en ce moment */
+  width: calc(100% -70px);
+  left: 70px;
+    
+  }
+  /* Main content */
+  .main_content{
+    /* margin-left: 345px; */
+    margin-left: 270px;
+    transition: left 300ms;
+  }
+  
+  /* le header */
+  .main_content header{
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    top: 0;
+    /* left: 345px; */
+    left: 270px;
+    /*width: calc(100% - 345px);  /*old */
+    z-index: 100;
+    transition: left 300ms;
+  }
+  .main_content header h2{
+    color: #222;
+  }
+  .main_content header label span{
+    font-size: 1.7rem;
+    padding-right: 1rem;
+  }
+  /* le toggle du nav */
+  #nav-toggle{
+    display:none;
+  }
+  /* search bar du header */
+  .search_wrapper{
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    overflow-x: hidden;
+  }
+  
+  .search_wrapper span{
+    display: inline-block;
+    font-size: 1.5rem;
+    padding: 0 1rem;
+  }
+  .search_wrapper input{
+    height: 100%;
+    padding: .5rem;
+    border: none;
+    outline: none;
+  }
+  
+  /* user profil du header */
+  .user_wrapper{
+    display: flex;
+    align-items: center;
+  }
+  .user_wrapper img{
+    border-radius: 50%;
+    margin-right: 1rem;
+    border: 1px solid #000 ;
+  }
+  .user_wrapper small{
+    display: inline-block;
+    color: #8390A2;
+  }
+  
+  /* le body */
+  .main_content main{
+    margin-top: 5px;
+    padding: 2rem 1.5rem;
+    background: #f1f5f9;
+    min-height: calc(100vh - 90px);
+  }
+  
+  
+  /* Responsive */
+  @media only screen and (max-width:1200px){
+    .sidebar{
+        width: 70px;
+    }
+    .sidebar .sidebar_brand,
+    .sidebar li{
+        padding-left: 1rem;
+        text-align: center;
+    }
+    .sidebar li a{
+        padding-left: 0;
+    }
+    .sidebar .sidebar_brand h2 span:last-child,
+    .sidebar li a span:last-child{
+        display: none;
+    }
+    .main_content{
+        margin-left: 70px;
+    }
+    .main_content header{
+        width: calc(100%-70px);
+        left: 70px;
+    }
+    /* le hover effet */
+    .sidebar:hover{
+        /* width: 345px; */
+        width: 270px;
+        z-index: 200;
+    }
+    .sidebar:hover .sidebar_brand,
+    .sidebar:hover li{
+        padding-left: 2rem;
+        text-align: left;
+    }
+    .sidebar:hover li a{
+        padding-left: 1rem;
+    }
+    .sidebar:hover .sidebar_brand h2 span:last-child,
+    .sidebar:hover li a span:last-child{
+        display: inline;
+    }
+  }
+  
+  @media only screen and (max-width:960px){
+    
+  }
+  
+  @media only screen and (max-width:768px){
+   
+    .search_wrapper{
+        display: none;
+    }
+    .sidebar{
+        left: -100% !important;
+    }
+    .main_content header h2 {
+        display: flex;
+        align-items: center;
+        font-size: 1.1rem;
+    }
+   
+    .main_content header h2 label {
+        display: inline-block;
+        /*background: #DD2F6E; */
+        background: #5995fd;
+        color: #fff;
+        padding-right: 0;
+        margin-right: 1rem;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center !important;
+  
+    }
+    .main_content header h2 span{
+        text-align: center;
+        padding-right: 0rem;
+    }
+    .main_content {
+        width: 100% ;
+        margin-left: 0rem;
+    }
+    .main_content header{
+        width: 100% !important;
+        left: 0 !important; 
+        z-index: 300;
+        
+    }
+    
+    #nav-toggle:checked + .sidebar {
+        left: 0 !important;
+        z-index: 100;
+        /* width: 345px; */
+        width: 270px;
+    }
+    #nav-toggle:checked ~ .main_content header{
+      /* c'est pour laisser afficher le header */
+      background-color: #fff;
+      z-index: 300  !important;
+      position: sticky;
+  }
+    #nav-toggle:checked + .sidebar .sidebar_brand,
+    #nav-toggle:checked + .sidebar li {
+        padding-left: 2rem;
+        text-align: left;
+    }
+    #nav-toggle:checked + .sidebar li a {
+        padding-left: 1rem;
+    }
+    #nav-toggle:checked + .sidebar .sidebar_brand h2 span:last-child,
+    #nav-toggle:checked + .sidebar li a span:last-child{
+        display: inline;
+    }
+    #nav-toggle:checked ~ .main_content{
+        margin-left: 0rem !important;
+    }
+   
+    
+  }
+  

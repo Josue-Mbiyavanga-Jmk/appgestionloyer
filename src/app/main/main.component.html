@@ -1,0 +1,100 @@
+<!-- sidebar -->
+<input type="checkbox" id="nav-toggle">
+<!-- sidebar -->
+<div class="sidebar">
+  <!-- sidebar logo -->
+  <div class="sidebar_brand">
+    <h2><span class="bx bx-layer"></span> <span>G-Loyer</span></h2>
+
+  </div>
+  <!-- fin sidebar logo -->
+
+  <!-- sidebar menu -->
+  <div class="sidebar_menu">
+    <ul>
+      <li>
+        <a [routerLink]="['dashboard']" routerLinkActive="active"> <span class="bx bx-grid-alt"></span> <span>Tableau de
+            bord</span> </a>
+      </li>
+      <li>
+        <a [routerLink]="['local']" routerLinkActive="active"> <span class="bx bx-home"></span> <span>Local</span>
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['locataire']" routerLinkActive="active"> <span class="bx bx-group"></span>
+          <span>Locataire</span> </a>
+      </li>
+      <li>
+        <a [routerLink]="['location']" routerLinkActive="active"> <span class="bx bx-bar-chart-alt-2"></span>
+          <span>Location</span> </a>
+      </li>
+      <li>
+        <a [routerLink]="['modalite']" routerLinkActive="active"> <span class="bx bx-receipt"></span>
+          <span>Modalités</span> </a>
+      </li>
+      <li>
+        <a [routerLink]="['paiement']" routerLinkActive="active"> <span class="bx bxs-bank"></span>
+          <span>Paiement</span> </a>
+      </li>
+      <li>
+        <a [routerLink]="['site']" routerLinkActive="active"> <span class="bx bx-building-house"></span>
+          <span>Site</span> </a>
+      </li>
+
+    </ul>
+    <ul class="bottom_link">
+      <li>
+        <a (click)="onLogout()"> <span class="bx bx-log-out"></span> <span>Déconnexion</span> </a>
+      </li>
+    </ul>
+
+
+  </div>
+
+
+  <!-- fin sidebar menu -->
+
+</div>
+<!-- fin sidebar -->
+
+<!-- main content -->
+<div class="main_content">
+  <!-- header de la page -->
+  <header>
+    <!-- icone de collapse-extend -->
+    <h2>
+      <label for="nav-toggle">
+        <span class="bx bx-menu"></span>
+      </label>
+      Espace de Gestion
+    </h2>
+    <!-- fin icone de collapse-extend -->
+
+    <!-- user profil -->
+
+    <div class="user_wrapper">
+      <img src="../../assets/img/profil.png" width="40px" height="40px" alt="Profil">
+      <div>
+        <a [routerLink]="['profil']" routerLinkActive="active" class="profil__link" title="Voir son profil">
+          <h4>John Doe</h4>
+        </a>
+
+        <small>Super admin</small>
+      </div>
+    </div>
+    <!-- fin user profil -->
+
+  </header>
+  <!-- fin header de la page -->
+
+  <!-- body de la page -->
+  <main>
+    <!--===== Changement des composant =====-->
+    <router-outlet></router-outlet>
+
+  </main>
+  <!-- fin body de la page -->
+
+
+</div>
+<!-- fin main content -->

@@ -1,0 +1,20 @@
+/*Show Composant */
+.block{
+    display: block;
+  }
+  
+/*Hidden Composant*/
+  .none{
+    display: none;
+  }
+
+  .focus__active{
+    color: #5995fd;
+    cursor: pointer;
+    border-bottom: solid #5995fd 1px;
+  }
+ 
+  .focus__inactive{
+    cursor: pointer;
+  }
+/*  */

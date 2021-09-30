@@ -1,0 +1,131 @@
+<h2 class="title">
+  Les Locataires
+</h2>
+
+<div class="container">
+  <div class="content_top">
+    <h3 class="subtitle1">Enregistrer un locataire</h3>
+
+    <form #myform="ngForm" class="form_content">
+      <div class="form_content_1">
+        <div class="login__box">
+          <i class='bx bx-text login__icon'></i>
+          <input type="text" name="prenom" placeholder="Entrer le Prénom" class="login__input"
+            [(ngModel)]="locataire.prenom" (ngModelChange)="onTextChangeInPrenom($event)">
+        </div>
+
+        <div class="login__box">
+          <i class='bx bx-text login__icon'></i>
+          <input type="text" name="nom" placeholder="Entrer les Noms" class="login__input" [(ngModel)]="locataire.nom"
+            (ngModelChange)="onTextChangeInNom($event)">
+        </div>
+
+        <div class="login__box">
+          <i class="fa fa-check login__icon"></i>
+          <select class="login__input1" name="sexe" [(ngModel)]="locataire.sexe" (change)="changeSexe($event)">
+            <option disabled>Choisir Sexe</option>
+            <option value="M">Masculin</option>
+            <option value="F">Féminin</option>
+          </select>
+
+        </div>
+
+        <!-- 2ème partie -->
+        <div class="login__box">
+          <i class='bx bxs-phone login__icon'></i>
+          <input type="tel" maxlength="16" name="telephone" placeholder="Ex. +243 999 911 550" class="login__input"
+            [(ngModel)]="locataire.telephone" (ngModelChange)="onTextChangeInPhone($event)">
+        </div>
+
+        <div class="login__box">
+          <i class='bx bx-envelope-open login__icon'></i>
+          <input type="email" name="email" placeholder="Entrer l'Email" class="login__input"
+            [(ngModel)]="locataire.email" (ngModelChange)="onTextChangeInEmail($event)">
+        </div>
+
+        <div class="login__box">
+          <i class='bx bx-text login__icon'></i>
+          <input type="text" name="description" placeholder="Entrer une description" class="login__input"
+            [(ngModel)]="locataire.description" (ngModelChange)="onTextChangeInDescription($event)">
+        </div>
+
+
+      </div>
+
+      <!--  -->
+      <div class="form_content_btn">
+        <a class="login__button" (click)="onSaveLocataire(myform)">{{textBtn}}</a>
+      </div>
+
+    </form>
+
+  </div>
+
+  <div class="content_bottom">
+    <h3 class="subtitle2">Liste des locataires</h3>
+
+    <!-- ici il faut mettre input de recherche -->
+    <div class="login__input_search">
+      <i class='bx bx-search login__icon'></i>
+      <input type="text" name="nom" placeholder="Recherche par nom ici" class="login__input" [(ngModel)]="textSearch"
+        (ngModelChange)="onSearchByNom($event)">
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th (click)="onSort('locataire.nom')">
+            Nom
+            &nbsp; <i class='bx bx-sort tri__icon' title="Cliquez pour trier"></i>
+          </th>
+          <th (click)="onSort('locataire.prenom')">
+            Prenom
+            &nbsp; <i class='bx bx-sort tri__icon' title="Cliquez pour trier"></i>
+          </th>
+          <th>Sexe</th>
+          <th>Téléphone</th>
+          <th>Email</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let locataire of locataires | orderBy: key : reverse| paginate:{
+          itemsPerPage:itemPage, 
+          currentPage: page,
+          totalItems: totalLength }; index as i">
+
+          <td>{{ itemPage * (page - 1) + (i+1)}}</td>
+          <td class="text_capitalize">{{ locataire.nom }}</td>
+          <td class="text_capitalize">{{ locataire.prenom }}</td>
+          <td>{{ locataire.sexe }}</td>
+          <td>{{ locataire.telephone }}</td>
+          <td>{{ locataire.email }}</td>
+          <td>
+            <span class="bx bx-edit action_edit" title="Cliquez pour modifier" (click)="onUpdate(locataire)"></span>
+            &nbsp;|&nbsp;
+            <span class="bx bxs-trash action_delete" title="Cliquez pour supprimer"
+              (click)="onDelete(locataire)"></span>
+          </td>
+
+
+        </tr>
+      </tbody>
+
+    </table>
+
+    <div class="end_box_section">
+      <pagination-controls (pageChange)="page = $event" previousLabel="Précedent" nextLabel="Suivant"
+        class="page_center my-pagination">
+      </pagination-controls>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- spinner de progression -->
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-spin-fade">
+  <p style="font-size: 20px; color: white">{{textSpinner}}</p>
+</ngx-spinner>

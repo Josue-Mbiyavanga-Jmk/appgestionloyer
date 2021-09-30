@@ -1,0 +1,70 @@
+<h2 class="title">
+  Les Sites
+</h2>
+
+<div class="container">
+  <div class="content_left">
+    <h3 class="subtitle1">Enregistrer un site</h3>
+
+    <form #myform="ngForm" class="login__registre">
+
+      <div class="login__box">
+        <i class='bx bx-text login__icon'></i>
+        <input type="text" name="siteName" placeholder="Entrer le nom du site" class="login__input"
+          [(ngModel)]="siteName" (ngModelChange)="onTextChangeInName($event)">
+      </div>
+
+      <a class="login__button" (click)="onSaveSite(myform)">{{textBtn}}</a>
+
+    </form>
+
+  </div>
+
+  <div class="content_right" id="print">
+    <h3 class="subtitle2">Liste des sites</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Nom</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let site of sites | paginate:{
+          itemsPerPage:itemPage, 
+          currentPage: page,
+          totalItems: totalLength }; index as i">
+
+          <td>{{ itemPage * (page - 1) + (i+1)}}</td>
+          <td>{{ site.name }}</td>
+          <td>
+            <span class="bx bx-edit action_edit" title="Cliquez pour modifier" (click)="onUpdate(site)"></span>
+            &nbsp;|&nbsp;
+            <span class="bx bxs-trash action_delete" title="Cliquez pour supprimer" (click)=" onDelete(site)"></span>
+          </td>
+
+
+        </tr>
+      </tbody>
+
+    </table>
+
+    <div class="end_box_section">
+      <pagination-controls (pageChange)="page = $event" previousLabel="Précedent" nextLabel="Suivant"
+        class="page_center my-pagination">
+      </pagination-controls>
+    </div>
+
+  </div>
+
+  <a class="login__button" (click)="onPrint()">Imprimer</a>
+
+</div>
+
+<!-- spinner de progression -->
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-spin-fade">
+  <p style="font-size: 20px; color: white">Operation en cours...</p>
+</ngx-spinner>

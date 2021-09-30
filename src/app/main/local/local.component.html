@@ -1,0 +1,113 @@
+<h2 class="title">
+  Les Locaux
+</h2>
+
+<div class="container">
+  <div class="content_top">
+    <h3 class="subtitle1">Enregistrer un local</h3>
+
+    <form #myform="ngForm" class="form_content">
+      <div class="form_content_1">
+        <div class="login__box">
+          <i class='bx bx-text login__icon'></i>
+          <input type="text" name="name" placeholder="Entrer le nom du local" class="login__input"
+            [(ngModel)]="local.name" (ngModelChange)="onTextChangeInName($event)">
+        </div>
+
+        <div class="login__box">
+          <i class="fa fa-check login__icon"></i>
+          <select class="login__input1" name="type" [(ngModel)]="local.type" (change)="changeType($event)">
+            <option disabled>Choisir Type</option>
+            <option value="commercial">Commercial</option>
+            <option value="residentiel">Residentiel</option>
+          </select>
+
+        </div>
+
+        <div class="login__box">
+          <i class="fa fa-check login__icon"></i>
+          <select class="login__input1" [(ngModel)]="siteName" (change)="changeSite($event)"
+            [ngModelOptions]="{standalone: true}">
+            <option disabled>Choisir Site</option>
+            <option *ngFor="let site of sites">{{site.name}}</option>
+
+          </select>
+
+        </div>
+
+
+      </div>
+
+      <div class="form_content_2">
+        <div class="login__box_1">
+          <i class='bx bx-text login__icon'></i>
+          <input type="text" name="description" placeholder="Entrer la description du local" class="login__input"
+            [(ngModel)]="local.description" (ngModelChange)="onTextChangeInDescription($event)">
+        </div>
+
+      </div>
+
+      <div class="form_content_btn">
+        <a class="login__button" (click)="onSaveLocal(myform)">{{textBtn}}</a>
+      </div>
+
+    </form>
+
+  </div>
+
+  <div class="content_bottom">
+    <h3 class="subtitle2">Liste des locaux</h3>
+
+    <div>
+      <!-- ici il faut mettre input de recherche -->
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th>Nom</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Site</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let local of locals | paginate:{
+          itemsPerPage:itemPage, 
+          currentPage: page,
+          totalItems: totalLength }; index as i">
+
+          <td>{{ itemPage * (page - 1) + (i+1)}}</td>
+          <td>{{ local.name }}</td>
+          <td>{{ local.type }}</td>
+          <td>{{ local.description }}</td>
+          <td>{{ local.siteName }}</td>
+          <td>
+            <span class="bx bx-edit action_edit" title="Cliquez pour modifier" (click)="onUpdate(local)"></span>
+            &nbsp;|&nbsp;
+            <span class="bx bxs-trash action_delete" title="Cliquez pour supprimer" (click)="onDelete(local)"></span>
+          </td>
+
+
+        </tr>
+      </tbody>
+
+    </table>
+
+    <div class="end_box_section">
+      <pagination-controls (pageChange)="page = $event" previousLabel="Précedent" nextLabel="Suivant"
+        class="page_center my-pagination">
+      </pagination-controls>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- spinner de progression -->
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-spin-fade">
+  <p style="font-size: 20px; color: white">{{textSpinner}}</p>
+</ngx-spinner>

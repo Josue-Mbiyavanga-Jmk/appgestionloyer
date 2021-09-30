@@ -1,0 +1,18 @@
+<div class="">
+  <span class="focus__inactive" [ngClass]="{'focus__active': isActive}" id="first-page-on" title="Cliquez ici">
+    Modalités loyer du mois >>>
+  </span>
+  &nbsp; &nbsp; | &nbsp; &nbsp;
+  <span class="focus__inactive" [ngClass]="{'focus__active': !isActive}" id="second-page-on" title="Cliquez ici">
+    Modalités charges du mois >>>
+  </span>
+
+  <br><br>
+  <!-- première portion -->
+  <app-loyer id="first-page" [locations]="locations"></app-loyer>
+
+  <!-- deuxième portion -->
+  <app-charge id="second-page" class="none" [locations]="locations"></app-charge>
+
+
+</div>

@@ -1,0 +1,138 @@
+<div class="">
+
+  <h3 class="login__title">Enregistrement des charges à payer</h3>
+
+  <form #myform="ngForm" class="form_content">
+    <div class="form_content_1">
+
+      <div class="login__box">
+        <i class="bx bx-user login__icon"></i>
+        <select class="login__input1" name="locataire" (change)="changeLocataire($event)" ngModel>
+          <option selected>Choisir Locataire</option>
+          <option *ngFor="let location of locations">{{location.locataireName}}</option>
+
+        </select>
+
+      </div>
+
+      <div class="login__box">
+        <i class="bx bx-clinic login__icon"></i>
+        <select class="login__input1" name="local" (change)="changeLocal($event)" ngModel>
+          <option selected>Choisir Local</option>
+          <option *ngFor="let location of customLocations">{{location.localName}}</option>
+
+        </select>
+
+      </div>
+
+      <div class="login__box">
+        <i class='bx bxs-calendar login__icon'></i>
+        <input type="month" name="periode" class="login__input" ngModel (change)="changePeriode($event)">
+      </div>
+
+      <!-- 2ème -->
+      <div class="login__box">
+        <i class='bx bx-dollar-circle login__icon'></i>
+        <input type="number" min="1" name="snel" placeholder="Frais SNEL (US)" class="login__input" ngModel>
+
+      </div>
+
+      <div class="login__box">
+        <i class='bx bx-dollar-circle login__icon'></i>
+        <input type="number" min="1" name="regideso" placeholder="Frais REGIDESO (US)" class="login__input" ngModel>
+
+      </div>
+
+      <div class="login__box">
+        <i class='bx bx-dollar-circle login__icon'></i>
+        <input type="number" min="0" name="autres" placeholder="Autres Frais (US)" class="login__input" ngModel>
+
+      </div>
+
+
+    </div>
+
+    <!--  -->
+    <div class="form_content_btn">
+      <a class="login__button" (click)="onSaveCharge(myform)">{{textBtn}}</a>
+    </div>
+
+  </form>
+
+  <h3 class="login__title">Liste de reglement des charges</h3> <br>
+  <!-- ici il faut mettre des input de recherche -->
+  <div class="search_content">
+    <div class="login__input_search">
+      <i class='bx bx-search login__icon'></i>
+      <input type="text" name="nomLocataire" placeholder="Recherche par locataire ici" class="login__input"
+        [(ngModel)]="textSearchLocataire" (ngModelChange)="onSearchByLocataire($event)">
+    </div>
+
+    <div class="login__input_search">
+      <i class='bx bx-search login__icon'></i>
+      <input type="text" name="nomLocal" placeholder="Recherche par local ici" class="login__input"
+        [(ngModel)]="textSearchLocal" (ngModelChange)="onSearchByLocal($event)">
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>
+          Locataire
+        </th>
+        <th>Local</th>
+        <th>Mois</th>
+        <th>Année</th>
+        <th>SNEL (US)</th>
+        <th>EAU (US)</th>
+        <th>AUTRES (US)</th>
+        <th>TOTAL PAYE (US)</th>
+        <th>Etat</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor="let charge of charges | paginate:{
+        itemsPerPage:itemPage, 
+        currentPage: page,
+        totalItems: totalLength }; index as i">
+
+        <td>{{ itemPage * (page - 1) + (i+1)}}</td>
+        <td>{{ charge.locataire }}</td>
+        <td>{{ charge.local }}</td>
+        <td>{{ charge.mois }}</td>
+        <td>{{ charge.annee }}</td>
+        <td>{{ charge.snel }}</td>
+        <td>{{ charge.regideso }}</td>
+        <td>{{ charge.autres }}</td>
+        <td>{{ charge.montant }}</td>
+        <td>{{ charge.state }}</td>
+        <td>
+          <span class="bx bx-edit action_edit" title="Cliquez pour modifier"></span>
+          &nbsp;|&nbsp;
+          <span class="bx bxs-trash action_delete" title="Cliquez pour supprimer"></span>
+
+        </td>
+
+
+      </tr>
+    </tbody>
+
+  </table>
+
+  <div class="end_box_section">
+    <pagination-controls (pageChange)="page = $event" previousLabel="Précedent" nextLabel="Suivant"
+      class="page_center my-pagination">
+    </pagination-controls>
+  </div>
+
+</div>
+
+
+<!-- spinner de progression -->
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-spin-fade">
+  <p style="font-size: 20px; color: white">{{textSpinner}}</p>
+</ngx-spinner>

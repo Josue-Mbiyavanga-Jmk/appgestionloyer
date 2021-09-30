@@ -1,0 +1,149 @@
+<h2 class="title">
+  Les Locations
+</h2>
+
+<div class="container">
+  <div class="content_top">
+    <h3 class="subtitle1">Enregistrer une location</h3>
+
+    <form #myform="ngForm" class="form_content">
+      <div class="form_content_1">
+
+        <div class="login__box">
+          <i class="bx bx-clinic login__icon"></i>
+          <select class="login__input1" name="localName" [(ngModel)]="localName" (change)="changeLocal($event)"
+            [ngModelOptions]="{standalone: true}" [disabled]="isNotSelectable">
+            <option selected>Choisir Local</option>
+            <option *ngFor="let local of locals">{{local.name}}</option>
+
+          </select>
+
+        </div>
+
+        <div class="login__box">
+          <i class="bx bx-user login__icon"></i>
+          <select class="login__input1" name="locataireName" [(ngModel)]="locataireName"
+            (change)="changeLocataire($event)" [ngModelOptions]="{standalone: true}" [disabled]="isNotSelectable">
+            <option selected>Choisir Locataire</option>
+            <option *ngFor="let locataire of locataires">{{locataire.nom}} - {{locataire.prenom}}</option>
+
+          </select>
+
+        </div>
+
+        <div class="login__box">
+          <i class='bx bx-dollar-circle login__icon'></i>
+          <input type="number" min="1" name="loyer" placeholder="Loyer à payer en USD" class="login__input"
+            [(ngModel)]="location.loyer" (ngModelChange)="onTextChangeInLoyer($event)">
+        </div>
+
+        <!-- 2ème partie -->
+
+        <div class="login__box">
+          <i class='bx bx-dollar-circle login__icon'></i>
+          <input type="number" min="1" name="garantie" placeholder="Garantie payée en USD" class="login__input"
+            [(ngModel)]="location.garantie" (ngModelChange)="onTextChangeInGarantie($event)">
+        </div>
+
+        <div class="login__box">
+          <i class='bx bxs-calendar  login__icon'></i>
+          <input type="texte" name="dateDebut" placeholder="Date début contrat" class="login__input"
+            onfocus="(this.type='date')" [(ngModel)]="dateDebut"> <!-- location.dateDebut -->
+        </div>
+
+        <div class="login__box">
+          <i class="fa fa-check login__icon"></i>
+          <select class="login__input1" name="dureeMoisGarantie" [(ngModel)]="location.dureeMoisGarantie"
+            (change)="changeDureeGarantie($event)">
+            <option disabled>Choisir Durée de la Garantie</option>
+            <option value="3">3 mois</option>
+            <option value="4">4 mois</option>
+            <option value="5">5 mois</option>
+            <option value="6">6 mois</option>
+            <option value="7">7 mois</option>
+            <option value="8">8 mois</option>
+          </select>
+
+        </div>
+
+
+      </div>
+
+      <!--  -->
+      <div class="form_content_btn">
+        <a class="login__button" (click)="onSaveLocation(myform)">{{textBtn}}</a>
+      </div>
+
+    </form>
+
+  </div>
+
+  <div class="content_bottom">
+    <h3 class="subtitle2">Liste des locations</h3>
+
+    <!-- ici il faut mettre input de recherche -->
+    <div class="login__input_search">
+      <i class='bx bx-search login__icon'></i>
+      <input type="text" name="nom" placeholder="Recherche par locataire" class="login__input" [(ngModel)]="textSearch"
+        (ngModelChange)="onSearchByNom($event)">
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>No.</th>
+          <th (click)="onSort('location.localName')">
+            Locataire
+            &nbsp; <i class='bx bx-sort tri__icon' title="Cliquez pour trier"></i>
+          </th>
+          <th>Local</th>
+          <th>Loyer (USD)</th>
+          <th>Garantie (USD)</th>
+          <th>Durée/Mois</th>
+          <th>Contrat</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let location of locations | orderBy: key : reverse| paginate:{
+          itemsPerPage:itemPage, 
+          currentPage: page,
+          totalItems: totalLength }; index as i">
+
+          <td>{{ itemPage * (page - 1) + (i+1)}}</td>
+          <td>{{ location.locataireName }}</td>
+          <td>{{ location.localName }}</td>
+          <td>{{ location.loyer }}</td>
+          <td>{{ location.garantie }}</td>
+          <td>{{ location.dureeMoisGarantie }}</td>
+          <td *ngIf="location.status == 1">en cours</td>
+          <td *ngIf="location.status == 2">expiré</td>
+          <td>
+            <span class="bx bx-edit action_edit" title="Cliquez pour modifier" (click)="onUpdate(location)"></span>
+            &nbsp;|&nbsp;
+            <span class="bx bxs-trash action_delete" title="Cliquez pour supprimer" (click)="onDelete(location)"></span>
+            |&nbsp;
+            <span class="bx bxs-x-square action_delete" title="Cliquez pour arreter le contrat"
+              (click)="onStop(location)"></span>
+          </td>
+
+        </tr>
+      </tbody>
+
+    </table>
+
+    <div class="end_box_section">
+      <pagination-controls (pageChange)="page = $event" previousLabel="Précedent" nextLabel="Suivant"
+        class="page_center my-pagination">
+      </pagination-controls>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- spinner de progression -->
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#fff" type="ball-spin-fade">
+  <p style="font-size: 20px; color: white">{{textSpinner}}</p>
+</ngx-spinner>
